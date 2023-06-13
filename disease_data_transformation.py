@@ -28,4 +28,14 @@ def cln_data(data, data_list):
         data_dict = dict(zip(df["pic_name"], df["url"]))
 
         folder_path = f"./{disease_name.replace(' ', '_', )}"
-        os.makedirs(folder_path, exist_ok=True)  # Create folder if 
+        os.makedirs(folder_path, exist_ok=True)  # Create folder if it doesn't exist
+
+        for pic_name, url in data_dict.items():
+            filename = f"{pic_name.replace(' ', '_', )}.jpg"
+            file_path = os.path.join(folder_path, filename)
+
+            try:
+                headers = {'User-Agent': 'Your Custom User-Agent'}
+                response = requests.get(url, headers=headers)
+
+                response.raise_for_status()  # Check for any HTTP 
