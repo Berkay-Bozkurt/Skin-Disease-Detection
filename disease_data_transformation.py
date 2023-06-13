@@ -38,4 +38,12 @@ def cln_data(data, data_list):
                 headers = {'User-Agent': 'Your Custom User-Agent'}
                 response = requests.get(url, headers=headers)
 
-                response.raise_for_status()  # Check for any HTTP 
+                response.raise_for_status()  # Check for any HTTP errors
+
+                with open(file_path, 'wb') as file:
+                    file.write(response.content)
+
+                print(f"Image downloaded: {file_path}")
+
+            except requests.exceptions.RequestException as e:
+                print(f"Error downloading image from {url}: {str(e)}")
