@@ -2,9 +2,9 @@ import pandas as pd
 import shutil
 import os
 
-csv_cancer=pd.read_csv("zr7vgbcyr2-1//metadata.csv")
+csv_cancer=pd.read_csv("transformed_df.csv")
 
-def move_images(data, source_folder, destination_parent_folder):
+def move_images(data, source_folder: str, destination_parent_folder: str) -> None:
     unique_diagnoses = data["diagnostic"].unique()
 
     # Create destination folders for each unique diagnosis
@@ -26,3 +26,5 @@ def move_images(data, source_folder, destination_parent_folder):
             print(f"Moved {file_name} to {destination_folder}/{file_name}")
         else:
             print(f"File {file_name} not found in {source_folder}")
+
+move_images(csv_cancer,"./cancer/all_cancer_images","./cancer")
