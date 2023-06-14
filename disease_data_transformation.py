@@ -14,7 +14,7 @@ disease_list = [
     ["eczema", "dyshidrotic eczema"],
     "seborrheic dermatitis"]
 
-def cln_data(data, data_list):
+def cln_data(data, data_list: list) -> None:
     for i in data_list:
         if isinstance(i, list):
             df = data[data["label"].isin(i)]
@@ -47,3 +47,5 @@ def cln_data(data, data_list):
 
             except requests.exceptions.RequestException as e:
                 print(f"Error downloading image from {url}: {str(e)}")
+
+cln_data(csv_, disease_list)
