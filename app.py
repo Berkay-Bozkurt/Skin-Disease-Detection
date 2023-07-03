@@ -16,6 +16,7 @@ from tensorflow import keras
 def load_data(csv_path, image_dir):
     # Load CSV data
     df = pd.read_csv(csv_path)
+    df = df.sample(frac = 1).reset_index()
     X = np.array(df.drop(["diagnostic", "img_id"], axis=1))
     y = np.array(df["diagnostic"])
     label_encoder = LabelEncoder()
