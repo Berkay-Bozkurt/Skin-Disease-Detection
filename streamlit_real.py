@@ -187,4 +187,79 @@ elif page == "Methodology of ml model (Concatinating)":
 
 
 
+elif page == "Lets see some results":
+    patient_name = st.selectbox("Pick a patient", NAMES)
+    show_button = st.button(label="Make Prediction")
+    if show_button:
+        st.write("Don't worry I am getting the patient information and image for you")
+        st.write("But be patient")
+        prediction_result, prediction_image = main(patient_name)
+        st.write(prediction_result)
+        st.image(prediction_image, width=400)
+
+
+
+elif page == "Further steps":
+    col1,col2,col3,col4,col5 = st.columns([10,1,10,1,10])
+            
+    with col1:
+        st.write("Collect more data")
+        st.image('./Stimlit_Images/Data_collection.png')
+
+    with col3:
+      st.write("Another model for skin disease")
+      st.image('./Stimlit_Images/skin.jpg')
+        
+    with col5:
+       st.write("Mobile app for people to use it")
+       st.image('./Stimlit_Images/mobile_app.png')
+    
+
+
+
+
+else:
+    st.markdown("<h1 style='text-align: center; color: red;'>Tools I have used.</h1>", unsafe_allow_html=True)
+    st.markdown("")
+    col1,col2,col3,col4,col5 = st.columns([10,1,10,1,10])
+    
+    with col1:
+        st.image('./Stimlit_Images/logo/Keras.png')
+
+    with col3:
+        st.image('./Stimlit_Images/logo/NumPy.png')
+        
+    with col5:
+        st.image('./Stimlit_Images/logo/Pandas_logo.png')
+    col1,col2,col3,col4,col5 = st.columns([10,1,10,1,8])
+
+    with col1:
+        st.image('./Stimlit_Images/logo/python-logo.png',width=150)
+
+    with col3:
+        st.image('./Stimlit_Images/logo/cuda.jpg')
+        
+    with col5:
+        st.image('./Stimlit_Images/logo/sk_learn.jpg')
+
+    col1,col2,col3,col4,col5 = st.columns([10,1,10,1,10])
+    
+    with col1:
+        st.image('./Stimlit_Images/logo/sphx_glr_logo.png')
+
+    with col3:
+        st.image('./Stimlit_Images/logo/Streamlit-logo.jpeg')
+        
+    with col5:
+        st.image('./Stimlit_Images/logo/tensorflow_.png')
+
+    show_button = st.button(label="Thank You")
+    if show_button:
+        st.write("Thank you so much for your time")
+        st.write("")
+        st.write("")
+        st.write("")
+        st.markdown("<h5 style='text-align: center; color: white;'>And always take care of your skin!!!</h5>", unsafe_allow_html=True)
+        st.image('./Stimlit_Images/sunscreen.png')
+
 
