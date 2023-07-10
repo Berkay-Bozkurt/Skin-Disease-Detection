@@ -81,4 +81,29 @@ def main(patient_name: str):
     non_image_features = test_row[test_row["patient"] == patient_name]
     non_image_features = np.array(non_image_features.drop(["diagnostic", "img_id", "patient"], axis=1))
 
+    # Construct the full image path
+    img_id = test_row[test_row["patient"] == patient_name]
+    img_id = img_id["img_id"].to_string(index=False).strip()
+    test_image_path = os.path.join('./cancaer/images/test', img_id)
+
+    # Load and preprocess the user-selected image
+    loaded_image = load_image(test_image_path)
+    model_names = ["resnet", "densenet", "mobilenet"]
+    processed_images = show_preprocess_image(loaded_image, model_names)
+
+
+    # Replicate non_image_features to match the batch size
+    num_samples = processed_images[0].shape[0]
+    non_image_features = np.tile(non_image_features, (num_samples, 1))
+
+    # Make predictions on the test image
+    predictions = image_predict(processed_images, non_image_features, model)
+    
+    # Find the highest-scoring prediction
+    max_prob = max(predictions.values())
+    predicted_class = [k for k, v in predictions.items() if v == max_prob][0]
+
+    # Get the full name of the predicted class
+    predicted_class_name = CLASSES.get(predicted_class)
+
 
