@@ -62,4 +62,23 @@ def image_predict(preprocessed_images, non_image_features, model):
     return class_probabilities
 
 
+def main(patient_name: str):
+    # Load the model
+    model = load_model("0.7164(new).h5")
+
+    # Load the class labels
+    CLASSES = {
+        "ACK": "Actinic Keratosis",
+        "MEL": "Malignant Melanoma",
+        "BCC": "Basal Cell Carcinoma of skin",
+        "SCC": "Squamous Cell Carcinoma",
+        "SEK": "Seborrheic Keratosis",
+        "NEV": "Nevus"
+    }
+
+    # Load non-image features
+    test_row = pd.read_csv("./Augmentation/test_df.csv")
+    non_image_features = test_row[test_row["patient"] == patient_name]
+    non_image_features = np.array(non_image_features.drop(["diagnostic", "img_id", "patient"], axis=1))
+
 
