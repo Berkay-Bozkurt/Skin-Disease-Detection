@@ -106,4 +106,10 @@ def main(patient_name: str):
     # Get the full name of the predicted class
     predicted_class_name = CLASSES.get(predicted_class)
 
+    # Display the result
+    result_text = f"{patient_name} most likely has '{predicted_class_name}' "
+    return result_text, loaded_image
 
+
+if __name__ == "__main__":
+    main("SCC_Joseph")
