@@ -1,6 +1,6 @@
 # Skin_Disease_Detection
 
-This repository contains a machine learning algorithm with deep convolutional networks designed to predict six classes of skin cancer using the PAD-UFES-20 dataset, which includes raw images and patient information stored in a CSV file. The algorithm utilizes pre-trained ResNet152, DenseNet121, MobileNet models, as features such as visual semantics, edges, and object shapes can be transferable from the Imagenet dataset. Additionally, a dedicated CNN model is designed for processing the CSV file, capturing relevant information and improving the overall prediction accuracy. All code is implemented in Python.
+This repository contains a machine learning algorithm with deep convolutional networks designed to predict six classes of skin cancer using the PAD-UFES-20 dataset, which includes raw images and patient information stored in a CSV file. The algorithm utilizes pre-trained ResNet152, DenseNet121 and MobileNet models as features such as visual semantics, edges, and object shapes can be transferable from the Imagenet dataset. Additionally, a dedicated CNN model is designed for processing the CSV file, capturing relevant information and improving the overall prediction accuracy. All code is implemented in Python.
 
 ## Table of Contents
 
