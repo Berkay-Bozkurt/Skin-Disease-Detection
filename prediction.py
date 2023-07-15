@@ -8,6 +8,15 @@ from tensorflow.keras.models import load_model
 import os
 import pandas as pd
 
+CLASSES = {
+    "ACK": "Actinic Keratosis",
+    "MEL": "Malignant Melanoma",
+    "BCC": "Basal Cell Carcinoma of skin",
+    "SCC": "Squamous Cell Carcinoma",
+    "SEK": "Seborrheic Keratosis",
+    "NEV": "Nevus"
+}
+
 def load_image(image_path, target_size=(224, 224)):
     """
     Loads an input image into PIL format of specified size
@@ -56,7 +65,7 @@ def image_predict(preprocessed_images, non_image_features, model):
     """
     predictions = model.predict([preprocessed_images, non_image_features])
     probabilities = np.round(predictions[0], 6)
-    CLASSES = os.listdir('./cancer/images/test')
+
     class_probabilities = dict(zip(CLASSES, probabilities))
     
     return class_probabilities
@@ -64,27 +73,18 @@ def image_predict(preprocessed_images, non_image_features, model):
 
 def main(patient_name: str):
     # Load the model
-    model = load_model("0.7164(new).h5")
-
-    # Load the class labels
-    CLASSES = {
-        "ACK": "Actinic Keratosis",
-        "MEL": "Malignant Melanoma",
-        "BCC": "Basal Cell Carcinoma of skin",
-        "SCC": "Squamous Cell Carcinoma",
-        "SEK": "Seborrheic Keratosis",
-        "NEV": "Nevus"
-    }
+    model = load_model("model_81.h5")
 
     # Load non-image features
     test_row = pd.read_csv("./Augmentation/test_df.csv")
+    test_row=test_row.sample(frac=1).reset_index()
     non_image_features = test_row[test_row["patient"] == patient_name]
     non_image_features = np.array(non_image_features.drop(["diagnostic", "img_id", "patient"], axis=1))
 
     # Construct the full image path
     img_id = test_row[test_row["patient"] == patient_name]
     img_id = img_id["img_id"].to_string(index=False).strip()
-    test_image_path = os.path.join('./cancaer/images/test', img_id)
+    test_image_path = os.path.join('./cancer/images/test', img_id)
 
     # Load and preprocess the user-selected image
     loaded_image = load_image(test_image_path)
@@ -112,4 +112,4 @@ def main(patient_name: str):
 
 
 if __name__ == "__main__":
-    main("SCC_Joseph")
+    main("SEK_Samuel")
