@@ -23,6 +23,7 @@ def load_data(csv_path: str, image_dir: str):
     # Load CSV data
     df = pd.read_csv(csv_path)
     df = df.sample(frac=1).reset_index()
+    df = df.drop(["index", "level_0"], axis=1)
     X = np.array(df.drop(["diagnostic", "img_id"], axis=1))
     y = np.array(df["diagnostic"])
     label_encoder = LabelEncoder()
@@ -161,7 +162,7 @@ def train_model(model, xtrain, ytrain, X, y, batch_size, epochs):
     
     stop_early = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=80)
     
-    history = model.fit([xtrain, xtrain, xtrain, X], [ytrain, y], batch_size=batch_size, epochs=epochs,
+    history = model.fit([xtrain, xtrain, xtrain, X], ytrain, batch_size=batch_size, epochs=epochs,
                         callbacks=[stop_early], validation_split=0.2)
     
     return history
@@ -185,7 +186,7 @@ combined_model = build_combined_model(cnn_model, densenet_model, mobilenet_model
 combined_model.summary()
 
 # Train the model
-history = train_model(combined_model, xtrain, ytrain, X, y, batch_size=16, epochs=1000)
+history = train_model(combined_model, xtrain, ytrain, X, y, batch_size=16, epochs=1_000)
 
 # Save the model
 combined_model.save("model.h5")
