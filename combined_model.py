@@ -23,8 +23,7 @@ def load_data(csv_path: str, image_dir: str):
     # Load CSV data
     df = pd.read_csv(csv_path)
     df = df.sample(frac=1).reset_index()
-    df = df.drop(["index", "level_0"], axis=1)
-    X = np.array(df.drop(["diagnostic", "img_id"], axis=1))
+    X = np.array(df.drop(["diagnostic", "img_id", "index", "level_0"], axis=1))
     y = np.array(df["diagnostic"])
     label_encoder = LabelEncoder()
     y = label_encoder.fit_transform(y)
