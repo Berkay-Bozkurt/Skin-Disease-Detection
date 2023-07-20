@@ -73,13 +73,13 @@ def image_predict(preprocessed_images, non_image_features, model):
 
 def main(patient_name: str):
     # Load the model
-    model = load_model("model_81.h5")
+    model = load_model("model.h5")
 
     # Load non-image features
     test_row = pd.read_csv("./Augmentation/test_df.csv")
     test_row=test_row.sample(frac=1).reset_index()
     non_image_features = test_row[test_row["patient"] == patient_name]
-    non_image_features = np.array(non_image_features.drop(["diagnostic", "img_id", "patient"], axis=1))
+    non_image_features = np.array(non_image_features.drop(["diagnostic", "img_id", "patient", "index", "level_0"], axis=1))
 
     # Construct the full image path
     img_id = test_row[test_row["patient"] == patient_name]
